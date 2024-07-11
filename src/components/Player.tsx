@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import Grid from "@mui/material/Grid";
 import YouTube from "react-youtube";
@@ -15,6 +15,7 @@ export interface PlayerProps {
 export const Player = ({ setGetDurationFunc, setPlayerRef }: PlayerProps) => {
   const sizeRef = useRef(null);
   const [videoId, setVideoId] = useState("");
+  const [width, setWidth] = useState(0);
 
   const onPlayerReady: YouTubeProps["onReady"] = (event) => {
     const player = event.target;
@@ -27,25 +28,36 @@ export const Player = ({ setGetDurationFunc, setPlayerRef }: PlayerProps) => {
   };
 
   const opts: YouTubeProps["opts"] = {
-    height: 390,
-    width: 640,
+    height: (width * 390) / 640,
+    width: width,
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
     },
   };
 
+  const fitWidth = () => {
+    const w = sizeRef.current?.offsetWidth;
+    if (w !== undefined) {
+      setWidth(w / 2);
+    }
+  };
+
+  window.addEventListener("resize", fitWidth);
+  useEffect(() => fitWidth(), []);
+
   return (
-    <div ref={sizeRef}>
+    <div>
+      <div ref={sizeRef} style={{ width: "100vw" }}></div>
       <Grid container alignItems="center" justifyContent="center">
         <Grid item xs={12} container justifyContent="center">
-          <div style={{ height: 390, width: 640 }}>
+          <div style={{ width: width }}>
             <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
           </div>
         </Grid>
         <Grid item xs={12} container justifyContent="center">
-          <div style={{ width: 640 }}>
-            <URLInput onChange={(id) => setVideoId(id)} />
+          <div style={{ width: width }}>
+            <URLInput onChange={(id: string) => setVideoId(id)} />
           </div>
         </Grid>
       </Grid>
