@@ -8,6 +8,10 @@ dev:
 sh:
 	$(DOCKER) bash
 
+.PHONY: build
+build:
+	$(DOCKER) npm run build
+
 .PHONY: init
 init:
 	$(DOCKER) bash -c "npm create vite@latest && mv vite-project/.??* vite-project/* . && rm -r vite-project && npm i -D prettier"

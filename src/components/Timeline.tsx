@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -37,7 +37,7 @@ export const Timeline = ({ getDurationFunc, playerRef }: TimelineProps) => {
   const [rows, setRows] = useState<GimmickTime[]>([]);
   const [checkedId, setCheckedId] = useState<string>("");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
-  const buttonRef = useRef(null);
+  const buttonRef = useRef<HTMLInputElement>(null);
 
   const baseSec = rows.find((r) => r.id === checkedId)?.sec ?? 0;
   const fixed = 3; // 小数点3ケタまで表示

@@ -13,7 +13,7 @@ export interface PlayerProps {
 }
 
 export const Player = ({ setGetDurationFunc, setPlayerRef }: PlayerProps) => {
-  const sizeRef = useRef(null);
+  const sizeRef = useRef<HTMLDivElement>(null);
   const [videoId, setVideoId] = useState("");
   const [width, setWidth] = useState(0);
 
