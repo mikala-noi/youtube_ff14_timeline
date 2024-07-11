@@ -60,6 +60,20 @@ export const Player = ({ setGetDurationFunc, setPlayerRef }: PlayerProps) => {
             <URLInput onChange={(id: string) => setVideoId(id)} />
           </div>
         </Grid>
+        <Grid item xs={12} container justifyContent="center">
+          <div
+            style={{
+              maxWidth: width,
+              overflowWrap: "break-word",
+              fontSize: "0.875rem",
+              color: "rgba(0, 0, 0, 0.87)",
+            }}
+          >
+            {
+              '動画停止時 (コマ戻し: ",") (コマ送り: ".") (5秒戻し: "←") (5秒送り: "→")'
+            }
+          </div>
+        </Grid>
       </Grid>
     </div>
   );

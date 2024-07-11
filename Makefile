@@ -14,4 +14,4 @@ init:
 
 .PHONY: fmt
 fmt:
-	$(DOCKER) npm run format
+	$(DOCKER) bash -c "npm run lint -- --fix && npm run format"
